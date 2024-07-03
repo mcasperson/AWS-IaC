@@ -427,7 +427,7 @@ Resources:
             # Update all packages
             sudo yum update -y
             # Install useful tools
-            sudo yum install jq wget awscli -y
+            sudo yum install jq wget awscli java-17-amazon-corretto-devel -y
             # Install Kubernetes cli tools
             curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
             chmod +x ./kubectl
