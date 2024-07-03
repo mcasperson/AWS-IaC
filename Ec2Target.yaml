@@ -427,7 +427,7 @@ Resources:
             # Update all packages
             sudo yum update -y
             # Install useful tools
-            sudo yum install jq wget awscli java-17-amazon-corretto-devel -y
+            sudo yum install jq wget awscli vim java-17-amazon-corretto-devel -y
             # Install Tomcat
             curl https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.25/bin/apache-tomcat-10.1.25-fulldocs.tar.gz -O
             tar -xzf apache-tomcat-10.1.25-fulldocs.tar.gz
