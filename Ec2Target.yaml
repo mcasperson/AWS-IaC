@@ -419,19 +419,46 @@ Resources:
           Fn::Sub: |
             #cloud-boothook
             #!/bin/bash
+            
             # Wait for network connectivity
             until ping -c1 www.google.com &>/dev/null; do
                 echo "Waiting for network ..."
                 sleep 1
             done
+            
             # Update all packages
             sudo yum update -y
+            
             # Install useful tools
             sudo yum install jq wget awscli vim java-17-amazon-corretto-devel -y
+            
             # Install Tomcat
-            curl https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.25/bin/apache-tomcat-10.1.25-fulldocs.tar.gz -O
-            tar -xzf apache-tomcat-10.1.25-fulldocs.tar.gz
-            sudo mv tomcat-10.1-doc /opt
+            curl -O https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.25/bin/apache-tomcat-10.1.25.tar.gz
+            tar -xzf apache-tomcat-10.1.25.tar.gz
+            sudo mv apache-tomcat-10.1.25 /opt
+
+            sudo sh -c 'cat <<EOT > /etc/systemd/system/tomcat.service
+            [Unit]
+            Description=Apache Tomcat Web Application Container
+            After=syslog.target network.target
+            
+            [Service]
+            Type=forking
+            
+            Environment=JAVA_HOME=/usr/lib/jvm/jre
+            Environment=CATALINA_PID=/opt/apache-tomcat-10.1.25/temp/tomcat.pid
+            Environment=CATALINA_HOME=/opt/apache-tomcat-10.1.25
+            Environment=CATALINA_BASE=/opt/apache-tomcat-10.1.25
+            Environment="CATALINA_OPTS=-Xms512M -Xmx1024M -server -XX:+UseParallelGC"
+            Environment="JAVA_OPTS=-Djava.awt.headless=true -Djava.security.egd=file:/dev/./urandom"
+            
+            ExecStart=/opt/apache-tomcat-10.1.25/bin/startup.sh
+            ExecStop=/bin/kill -15 $MAINPID
+            
+            [Install]
+            WantedBy=multi-user.target
+            EOT'
+
             # Install Kubernetes cli tools
             curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
             chmod +x ./kubectl
@@ -444,6 +471,7 @@ Resources:
             curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
             tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
             sudo mv /tmp/eksctl /usr/local/bin
+            
             # Install Linux Tentacle
             sudo wget https://rpm.octopus.com/tentacle.repo -O /etc/yum.repos.d/tentacle.repo
             sudo yum install tentacle -y
