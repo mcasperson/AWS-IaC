@@ -446,8 +446,7 @@ Resources:
             
             sudo /opt/octopus/tentacle/Tentacle create-instance --instance "Tentacle" --config "/etc/octopus/Tentacle/tentacle-Tentacle.config"
             sudo /opt/octopus/tentacle/Tentacle new-certificate --instance "Tentacle" --if-blank
-            sudo /opt/octopus/tentacle/Tentacle configure --instance "Tentacle" --app "/home/Octopus/Applications" --noListen "True" --reset-trust
-            # sudo /opt/octopus/tentacle/Tentacle register-with --instance "Tentacle" --server "${OctopusURL}" --name "$(hostname)" --comms-style "TentacleActive" --server-comms-port "10943" --apiKey "${OctopusAPI}" --space "${OctopusSpace}" --environment "${EnvironmentOne}" --environment "${EnvironmentTwo}" --environment "${EnvironmentThree}" --role "${Role}"
+            sudo /opt/octopus/tentacle/Tentacle configure --instance "Tentacle" --app "/home/Octopus/Applications" --noListen "True" --reset-trust            
             sudo /opt/octopus/tentacle/Tentacle register-with --instance "Tentacle" --server "${OctopusURL}" --name "$(hostname)" --comms-style "TentacleActive" --server-comms-port "10943" --apiKey "${OctopusAPI}" --space "${OctopusSpace}" --environment "${EnvironmentOne}" --role "${Role}"
             sudo /opt/octopus/tentacle/Tentacle service --install --start --instance "Tentacle"
 
