@@ -460,6 +460,8 @@ Resources:
             EOT'
 
             sudo systemctl daemon-reload
+            sudo systemctl enable tomcat.service
+            sudo systemctl start tomcat.service
 
             # Install Kubernetes cli tools
             curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
