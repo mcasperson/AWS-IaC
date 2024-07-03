@@ -5,30 +5,30 @@
     },
   {
         "ParameterKey":"WorkstationIp",
-        "ParameterValue":""
+        "ParameterValue":"#{WorkstationIp}"
     },
   {
         "ParameterKey":"Key",
-        "ParameterValue":""
+        "ParameterValue":"#{Key}"
     },
   {
         "ParameterKey":"OctopusURL",
-        "ParameterValue":""
+        "ParameterValue":"#{OctopusURL}"
     },
   {
         "ParameterKey":"OctopusAPI",
-        "ParameterValue":""
+        "ParameterValue":"#{OctopusAPI}"
     },
   {
         "ParameterKey":"OctopusSpace",
-        "ParameterValue":""
+        "ParameterValue":"#{OctopusSpace}"
     },
   {
         "ParameterKey":"EnvironmentOne",
-        "ParameterValue":""
+        "ParameterValue":"#{EnvironmentOne}"
     },
   {
         "ParameterKey":"Role",
-        "ParameterValue":"Tomcat App Host"
+        "ParameterValue":"#{Role}"
     },  
 ]
