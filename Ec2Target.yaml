@@ -428,6 +428,10 @@ Resources:
             sudo yum update -y
             # Install useful tools
             sudo yum install jq wget awscli java-17-amazon-corretto-devel -y
+            # Install Tomcat
+            curl https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.25/bin/apache-tomcat-10.1.25-fulldocs.tar.gz -O
+            tar -xzf apache-tomcat-10.1.25-fulldocs.tar.gz
+            sudo mv tomcat-10.1-doc /opt
             # Install Kubernetes cli tools
             curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
             chmod +x ./kubectl
